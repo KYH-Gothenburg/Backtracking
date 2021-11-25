@@ -7,6 +7,32 @@ public class SudokuSolver {
 
     private boolean solveSudoku(int row, int col) {
         // Exercise - Write this method
+//        printBoard();
+//        System.out.println();
+
+        // Exit condition
+        if(row == 8 && col == 9) {
+            return true;
+        }
+
+        if(col == 9) {
+            row++;
+            col = 0;
+        }
+        if(board[row][col] != 0) {
+            return solveSudoku(row, col + 1);
+        }
+
+        for(int num = 1; num < 10; num++) {
+            if(canPlace(row, col, num)) {
+                board[row][col] = num;
+                if(solveSudoku(row, col + 1)) {
+                    return true;
+                }
+            }
+            // Backtracking
+            board[row][col] = 0;
+        }
         return false;
     }
 
